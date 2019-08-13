@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "jsx": "react",
-    "outDir": "build",
+    "outDir": "dist",
     "rootDir": "src",
     "lib": [
       "es6",
@@ -31,12 +31,10 @@
     "src/**/*.tsx"
   ],
   "exclude": [
-    "tools",
-    "__tests__",
-    "build",
     "dist",
     "node_modules",
-    "webpack.*"
+    "webpack.*",
+    "src/backend"
   ],
   "compileOnSave": false
 }

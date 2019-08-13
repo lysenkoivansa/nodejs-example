@@ -6,18 +6,11 @@ const path = require('path');
 module.exports = {
   entry: path.resolve(__dirname, 'src/frontend/index.tsx'),
 
-  watch: true,
-
-  mode: 'development',
+  mode: 'production',
 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-
-  devServer: {
-    contentBase: path.join(__dirname, './dist/'),
-    port: 3000
+    path: path.resolve(__dirname, 'dist/public')
   },
 
   resolve: {
@@ -53,8 +46,8 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-      __DEV__: true
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      __DEV__: false
     }),
 
     new HtmlWebpackPlugin({
