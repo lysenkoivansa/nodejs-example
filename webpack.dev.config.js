@@ -32,7 +32,7 @@ module.exports = {
       { test: /\.(jpe?g|png|gif)$/i, loader: 'file-loader?name=img/[name].[ext]' },
       { test: /\.ico$/, loader: 'file-loader?name=[name].[ext]' },
       {
-        test: /(\.css|\.scss|\.sass)$/,
+        test: /\.css$/,
         loaders: [
           {
             loader: MiniCssExtractPlugin.loader
@@ -44,8 +44,7 @@ module.exports = {
               options: {}
             }
           },
-          'resolve-url-loader',
-          'sass-loader?sourceMap'
+          'resolve-url-loader'
         ]
       }
     ]
