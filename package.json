@@ -6,8 +6,8 @@
   "scripts": {
     "build:backend": "tsc -p tsconfig.server.json",
     "build:frontend": "webpack --config=webpack.prod.config.js",
-    "prod": "npm run build:backend && npm run build:frontend && node dist/index.js",
-    "start": "webpack-dev-server --config=webpack.dev.config.js"
+    "dev": "webpack-dev-server --config=webpack.dev.config.js",
+    "start": "npm run build:backend && npm run build:frontend && node dist/index.js"
   },
   "keywords": [],
   "author": "",
