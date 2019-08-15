@@ -1,4 +1,4 @@
 module.exports = {
-  AUTH_HOST: 'https://localhost:9000/auth-host',
-  EMPLOYEES_HOST: 'https://localhost:9000/employees-host'
+  AUTH_HOST: 'https://auth-host:9000',
+  EMPLOYEES_HOST: 'https://employees-host:9000/'
 };
