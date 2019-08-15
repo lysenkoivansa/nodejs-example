@@ -56,8 +56,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       __DEV__: true,
-      AUTH_HOST: JSON.stringify(environmentConfig.AUTH_HOST),
-      EMPLOYEES_HOST: JSON.stringify(environmentConfig.EMPLOYEES_HOST)
+      __AUTH_HOST__: JSON.stringify(environmentConfig.AUTH_HOST),
+      __EMPLOYEES_HOST__: JSON.stringify(environmentConfig.EMPLOYEES_HOST)
     }),
 
     new HtmlWebpackPlugin({

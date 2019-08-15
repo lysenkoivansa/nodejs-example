@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button/Button";
 import { CardHeader } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {AuthApi, AuthApiRequest} from "../../api/auth-api";
+import './login.css';
+import {AUTH_HOST} from "../../constants/api";
 
 export class Login extends Component<{}, LoginState> {
   authApi: AuthApi;
@@ -37,35 +39,50 @@ export class Login extends Component<{}, LoginState> {
       })
       .catch(error => {
         // TODO: show error
+        this.setState({token: `Valid token! ${AUTH_HOST}`});
       })
   };
 
   render() {
     return (
-      <Card>
-        <CardHeader title='Login'/>
+      <>
+        <Card className='login-card'>
+          <CardHeader title='Login'/>
 
-        <CardContent>
-          <TextField
-            label="Login"
-            fullWidth
-            value={this.state.login}
-            onChange={this.handleChange('login')}
-          />
+          <CardContent>
+            <TextField
+              label="Login"
+              fullWidth
+              value={this.state.login}
+              onChange={this.handleChange('login')}
+            />
 
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            value={this.state.password}
-            onChange={this.handleChange('password')}
-          />
-        </CardContent>
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              value={this.state.password}
+              onChange={this.handleChange('password')}
+            />
+          </CardContent>
 
-        <CardActions>
-          <Button size="small" onClick={this.onSave}>Login</Button>
-        </CardActions>
-      </Card>
+          <CardActions>
+            <Button size="small" onClick={this.onSave}>Login</Button>
+          </CardActions>
+        </Card>
+
+        {
+          this.state.token
+            ?
+              <Card className='token-card'>
+                <CardHeader title='Token'/>
+                <CardContent>
+                  {this.state.token}
+                </CardContent>
+              </Card>
+            : null
+        }
+      </>
     );
   }
 }

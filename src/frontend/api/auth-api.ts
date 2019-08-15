@@ -1,10 +1,11 @@
 import {BaseApi} from "./base-api";
-
-declare const AUTH_HOST: string;
+import {AUTH_HOST} from "../constants/api";
 
 export class AuthApi extends BaseApi {
+  private _authHost = AUTH_HOST;
+
   login(credentials: AuthApiRequest): Promise<AuthApiResponse> {
-    return this.fetch(AUTH_HOST, credentials)
+    return this.fetch(`${this._authHost}/token`, credentials)
       .then(res => res.json());
   }
 }
