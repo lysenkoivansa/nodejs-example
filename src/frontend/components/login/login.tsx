@@ -6,21 +6,38 @@ import CardActions from "@material-ui/core/CardActions/CardActions";
 import Button from "@material-ui/core/Button/Button";
 import { CardHeader } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import {AuthApi, AuthApiRequest} from "../../api/auth-api";
 
 export class Login extends Component<{}, LoginState> {
+  authApi: AuthApi;
+
   constructor(props: {}) {
     super(props);
 
     this.state = {
       login: '',
-      password: ''
+      password: '',
+      token: ''
     };
+
+    this.authApi = new AuthApi();
   }
 
   handleChange = fieldName => event => this.setState({[fieldName]: event.target.value} as LoginState);
 
   onSave = () => {
-    console.log(this.state);
+    const credentials: AuthApiRequest = {
+      login: this.state.login,
+      password: this.state.password
+    };
+
+    this.authApi.login(credentials)
+      .then(token => {
+        this.setState({token: token.message})
+      })
+      .catch(error => {
+        // TODO: show error
+      })
   };
 
   render() {
@@ -56,4 +73,5 @@ export class Login extends Component<{}, LoginState> {
 interface LoginState {
   login: string;
   password: string;
+  token: string;
 }
