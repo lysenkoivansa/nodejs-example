@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const environmentConfig = require('./config/environment.dev.config');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/frontend/index.tsx'),
@@ -54,7 +55,9 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      __DEV__: true
+      __DEV__: true,
+      AUTH_HOST: JSON.stringify(environmentConfig.AUTH_HOST),
+      EMPLOYEES_HOST: JSON.stringify(environmentConfig.EMPLOYEES_HOST)
     }),
 
     new HtmlWebpackPlugin({

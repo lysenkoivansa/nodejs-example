@@ -33,7 +33,8 @@
     "dist",
     "node_modules",
     "webpack.*",
-    "src/backend"
+    "src/backend",
+    "config"
   ],
   "compileOnSave": false
 }
