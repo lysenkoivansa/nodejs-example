@@ -5,8 +5,6 @@ export class AuthApi extends BaseApi {
   private _authHost = AUTH_HOST;
 
   login(credentials: AuthApiRequest): Promise<AuthApiResponse> {
-    console.log(this._authHost);
-
     return this.fetch(`${this._authHost}/token`, credentials)
       .then(res => res.json());
   }
