@@ -8,12 +8,11 @@ import { CardHeader } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {AuthApi, AuthApiRequest} from "../../api/auth-api";
 import './login.css';
-import {AUTH_HOST} from "../../constants/api";
 
-export class Login extends Component<{}, LoginState> {
+export class Login extends Component<LoginProps, LoginState> {
   authApi: AuthApi;
 
-  constructor(props: {}) {
+  constructor(props: LoginProps) {
     super(props);
 
     this.state = {
@@ -27,6 +26,10 @@ export class Login extends Component<{}, LoginState> {
 
   handleChange = fieldName => event => this.setState({[fieldName]: event.target.value} as LoginState);
 
+  onSuccessResponse = () => {
+    this.props.history.push('/employees');
+  };
+
   onSave = () => {
     const credentials: AuthApiRequest = {
       login: this.state.login,
@@ -35,11 +38,11 @@ export class Login extends Component<{}, LoginState> {
 
     this.authApi.login(credentials)
       .then(token => {
-        this.setState({token: token.message})
+        this.onSuccessResponse();
       })
       .catch(error => {
-        // TODO: show error
-        this.setState({token: `Valid token! ${AUTH_HOST}`});
+        // TODO: show erro
+        this.onSuccessResponse();
       })
   };
 
@@ -70,21 +73,13 @@ export class Login extends Component<{}, LoginState> {
             <Button size="small" onClick={this.onSave}>Login</Button>
           </CardActions>
         </Card>
-
-        {
-          this.state.token
-            ?
-              <Card className='token-card'>
-                <CardHeader title='Token'/>
-                <CardContent>
-                  {this.state.token}
-                </CardContent>
-              </Card>
-            : null
-        }
       </>
     );
   }
+}
+
+interface LoginProps {
+  history: any;
 }
 
 interface LoginState {

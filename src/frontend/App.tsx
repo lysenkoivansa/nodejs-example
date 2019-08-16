@@ -1,16 +1,18 @@
 import React from "react";
 import {Component} from "react";
 import {Container} from '@material-ui/core';
-import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Login} from "./components/login/login";
+import {Employees} from "./components/employees/employees";
 
 export class App extends Component<{}, {}> {
   render(): JSX.Element {
     return (
       <Router>
         <Container maxWidth="sm">
-          <Redirect from="/" to="/login"/>
+          {/*<Redirect from="/" to="/login"/>*/}
           <Route path="/login" component={Login}/>
+          <Route path="/employees" component={Employees}/>
         </Container>
       </Router>
     );
