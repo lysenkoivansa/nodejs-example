@@ -28,7 +28,9 @@ export class Login extends Component<{}, LoginState> {
 
   handleChange = fieldName => event => this.setState({[fieldName]: event.target.value} as LoginState);
 
-  onSave = () => {
+  onSave = event => {
+    event.preventDefault();
+
     const credentials: AuthApiRequest = {
       login: this.state.login,
       password: this.state.password
@@ -51,20 +53,24 @@ export class Login extends Component<{}, LoginState> {
           <CardHeader title='Login'/>
 
           <CardContent>
-            <TextField
-              label="Login"
-              fullWidth
-              value={this.state.login}
-              onChange={this.handleChange('login')}
-            />
+            <form onSubmit={this.onSave}>
+              <TextField
+                label="Login"
+                fullWidth
+                value={this.state.login}
+                onChange={this.handleChange('login')}
+              />
 
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              value={this.state.password}
-              onChange={this.handleChange('password')}
-            />
+              <TextField
+                label="Password"
+                type="password"
+                fullWidth
+                value={this.state.password}
+                onChange={this.handleChange('password')}
+              />
+
+              <input type="submit" style={{visibility: 'hidden'}}/>
+            </form>
           </CardContent>
 
           <CardActions>
