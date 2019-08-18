@@ -23,10 +23,7 @@ export class Employees extends Component<{}, EmployeesState> {
     const token = sessionStorage.getItem('token');
 
     employeeApi.fetchEmployees(token || '')
-      .then(employees => {
-        console.log(employees);
-        this.setState({employees})
-      })
+      .then(employees => this.setState({employees}))
       .catch(error => console.error(error));
   }
 

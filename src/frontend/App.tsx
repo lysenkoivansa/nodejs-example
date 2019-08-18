@@ -1,7 +1,7 @@
 import React from "react";
 import {Component} from "react";
 import {Container} from '@material-ui/core';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {Login} from "./components/login/login";
 import {Employees} from "./components/employees/employees";
 
@@ -10,9 +10,11 @@ export class App extends Component<{}, {}> {
     return (
       <Router>
         <Container maxWidth="sm">
-          {/*<Redirect from="/" to="/login"/>*/}
-          <Route path="/login" component={Login}/>
-          <Route path="/employees" component={Employees}/>
+          <Switch>
+            <Redirect exact from="/" to="/login"/>
+            <Route path="/login" component={Login}/>
+            <Route path="/employees" component={Employees}/>
+          </Switch>
         </Container>
       </Router>
     );
