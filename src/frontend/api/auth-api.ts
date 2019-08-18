@@ -1,11 +1,8 @@
 import {BaseApi} from "./base-api";
-import {AUTH_HOST} from "../constants/api";
 
 export class AuthApi extends BaseApi {
-  private _authHost = AUTH_HOST;
-
   login(credentials: AuthApiRequest): Promise<AuthApiResponse> {
-    return this.fetch(`${this._authHost}/token`, credentials)
+    return this.fetch('/auth/token', credentials)
       .then(res => res.json());
   }
 }
@@ -16,5 +13,6 @@ export interface AuthApiRequest {
 }
 
 export interface AuthApiResponse {
-  message: string;
+  token: string;
+  Error: string;
 }

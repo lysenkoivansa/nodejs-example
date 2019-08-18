@@ -18,7 +18,9 @@ export class Login extends Component<LoginProps, LoginState> {
     this.state = {
       login: '',
       password: '',
-      token: ''
+      token: '',
+      requestCompleted: false,
+      error: null
     };
 
     this.authApi = new AuthApi();
@@ -30,20 +32,20 @@ export class Login extends Component<LoginProps, LoginState> {
     this.props.history.push('/employees');
   };
 
-  onSave = () => {
+  onSave = event => {
+    event.preventDefault();
+
     const credentials: AuthApiRequest = {
       login: this.state.login,
       password: this.state.password
     };
 
     this.authApi.login(credentials)
-      .then(token => {
-        this.onSuccessResponse();
-      })
-      .catch(error => {
-        // TODO: show erro
-        this.onSuccessResponse();
-      })
+      .then(response => {
+        if (response.token) {
+          this.onSuccessResponse();
+        }
+      });
   };
 
   render() {
@@ -53,20 +55,24 @@ export class Login extends Component<LoginProps, LoginState> {
           <CardHeader title='Login'/>
 
           <CardContent>
-            <TextField
-              label="Login"
-              fullWidth
-              value={this.state.login}
-              onChange={this.handleChange('login')}
-            />
+            <form onSubmit={this.onSave}>
+              <TextField
+                label="Login"
+                fullWidth
+                value={this.state.login}
+                onChange={this.handleChange('login')}
+              />
 
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              value={this.state.password}
-              onChange={this.handleChange('password')}
-            />
+              <TextField
+                label="Password"
+                type="password"
+                fullWidth
+                value={this.state.password}
+                onChange={this.handleChange('password')}
+              />
+
+              <input type="submit" style={{visibility: 'hidden'}}/>
+            </form>
           </CardContent>
 
           <CardActions>
@@ -86,4 +92,6 @@ interface LoginState {
   login: string;
   password: string;
   token: string;
+  requestCompleted: boolean;
+  error: string | null;
 }
