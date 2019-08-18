@@ -20,9 +20,11 @@ export class Employees extends Component<{}, EmployeesState> {
 
   componentDidMount() {
     const employeeApi = new EmployeeApi();
+    const token = sessionStorage.getItem('token');
 
-    employeeApi.fetchEmployees()
+    employeeApi.fetchEmployees(token || '')
       .then(employees => {
+        console.log(employees);
         this.setState({employees})
       })
       .catch(error => console.error(error));
@@ -43,8 +45,8 @@ export class Employees extends Component<{}, EmployeesState> {
             {this.state.employees.map(employee => (
               <TableRow key={employee.id}>
                 <TableCell>{employee.id}</TableCell>
-                <TableCell>{employee.fullName}</TableCell>
-                <TableCell>{employee.idNumber}</TableCell>
+                <TableCell>{employee.full_name}</TableCell>
+                <TableCell>{employee.id_number}</TableCell>
               </TableRow>
             ))}
           </TableBody>

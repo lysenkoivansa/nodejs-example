@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 const port = process.env.PORT || 9000;
 const app = express();
 const AUTH_HOST = process.env.AUTH_HOST || '';
+const EMPLOYEES_HOST = process.env.EMPLOYEES_HOST || '';
 
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, 'public')));
@@ -21,6 +22,18 @@ app.post('/auth/token', (req, res) => {
       password: req.body.password
     },
     json: true
+  }).pipe(res);
+});
+
+app.post('/employee', (req, res) => {
+  const token = req.body.token;
+
+  request(`${EMPLOYEES_HOST}/employee`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
   }).pipe(res);
 });
 

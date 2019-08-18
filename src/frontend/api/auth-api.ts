@@ -2,8 +2,7 @@ import {BaseApi} from "./base-api";
 
 export class AuthApi extends BaseApi {
   login(credentials: AuthApiRequest): Promise<AuthApiResponse> {
-    return this.fetch('/auth/token', credentials)
-      .then(res => res.json());
+    return this.fetch('/auth/token', credentials).then(res => res.json());
   }
 }
 

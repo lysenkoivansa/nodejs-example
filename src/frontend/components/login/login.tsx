@@ -8,9 +8,11 @@ import { CardHeader } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {AuthApi, AuthApiRequest} from "../../api/auth-api";
 import './login.css';
+import {EmployeeApi} from "../../api/employee-api";
 
 export class Login extends Component<LoginProps, LoginState> {
   authApi: AuthApi;
+  employeeApi: EmployeeApi;
 
   constructor(props: LoginProps) {
     super(props);
@@ -24,6 +26,7 @@ export class Login extends Component<LoginProps, LoginState> {
     };
 
     this.authApi = new AuthApi();
+    this.employeeApi = new EmployeeApi();
   }
 
   handleChange = fieldName => event => this.setState({[fieldName]: event.target.value} as LoginState);
@@ -41,8 +44,9 @@ export class Login extends Component<LoginProps, LoginState> {
     };
 
     this.authApi.login(credentials)
-      .then(response => {
-        if (response.token) {
+      .then(({token}) => {
+        if (token) {
+          sessionStorage.setItem('token', token);
           this.onSuccessResponse();
         }
       });
